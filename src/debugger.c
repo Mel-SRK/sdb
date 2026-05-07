@@ -87,7 +87,23 @@ static void cmd_memory(debugger_state_t *state){
     free(line);
 
     for(int row=0;row<10;row++){
-        
+        printf("0x%016lx ",addr);
+
+        unsigned char bytes[16];
+        for(int i=0;i<16;i+=8){
+            long word=ptrace(PTRACE_PEEKTEXT,state->child_pid,(void *)(addr+i),NULL);
+            for(int j=0;i<16;i+=8){
+                bytes[i + j] = (word >> (j * 8)) & 0xFF;
+            }
+        }
+        for(int i=0;i<16;i++)
+            printf("%02x ",bytes[i]);
+        printf("|");
+        for (int i = 0; i < 16; i++)
+            printf("%c", (bytes[i] >= 32 && bytes[i] <= 126) ? bytes[i] : '.');
+        printf("|\n");
+
+        addr += 16;
     }
 }
 
@@ -154,6 +170,7 @@ static command_t commands[] = {
     {"help", "显示帮助",            cmd_help},
     {"q",    "退出调试器",          cmd_quit},
     {"r",    "查看寄存器",          cmd_registers},
+    {"x",    "查看内存",            cmd_memory},
     {NULL, NULL, NULL}  //哨兵
 };
 

@@ -9,10 +9,10 @@
 - 全速继续运行
 - 命令历史（readline）
 - 寄存器读取
+- 内存查看
 
 ## 施工区域
 
-- 内存查看
 - 符号表解析
 - 反汇编?
 - PIE?
@@ -34,6 +34,8 @@ sdb/
 ```
 
 ## 编译
+
+项目同时也是用了Cmake虽然没必要，下例以make为例
 
 ```bash
 make          # 编译 sdb 和 demo
@@ -59,6 +61,8 @@ make clean    # 清理编译产物
 | `d`  | 删除断点（交互式输入 ID） |
 | `q`  | 退出调试器 |
 | `help` | 显示帮助 |
+| `x`  | 查看内存 |
+|  |  |
 
 ### 示例
 
@@ -67,10 +71,10 @@ make clean    # 清理编译产物
 make demo
 
 # 查看 demo 中 main 的地址
-objdump -d demo | grep '<main>'
+$ objdump -d demo | grep '<main>'
 
 # 启动调试，在 main 处设置断点
-./sdb ./demo
+$ ./sdb ../demo
 sdb > b
 [输入断点地址]> 401126
 [+] 断点 1 已设置在 0x401126
