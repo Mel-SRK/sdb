@@ -1,4 +1,5 @@
 #include "debugger.h"
+#include "ui.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -9,7 +10,7 @@ int main(int argc, char **argv) {
         printf("[*] 用法: %s <程序路径>\n", argv[0]);
         return 1;
     }
-
+    logo_putout();
     pid_t child_pid = fork();
     if (child_pid == 0) {
         run_target(argv[1]);

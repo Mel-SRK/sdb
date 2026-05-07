@@ -6,5 +6,5 @@
 char *ui_read_command(void);
 const command_t *ui_find_command(const char *name, const command_t *commands);
 void ui_print_help(const command_t *commands);
-
+void logo_putout();
 #endif

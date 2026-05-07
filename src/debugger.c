@@ -58,6 +58,21 @@ static int debugger_wait(debugger_state_t *state) {
 
 /* ── command handlers ───────────────────────────────────────────────── */
 
+static void cmd_registers(debugger_state_t *state){
+    struct user_regs_struct regs;
+    ptrace(PTRACE_GETREGS,state->child_pid,NULL,&regs);
+
+    printf("RAX: 0x%016llx  RBX: 0x%016llx\n", regs.rax, regs.rbx);
+    printf("RCX: 0x%016llx  RDX: 0x%016llx\n", regs.rcx, regs.rdx);
+    printf("RSI: 0x%016llx  RDI: 0x%016llx\n", regs.rsi, regs.rdi);
+    printf("RBP: 0x%016llx  RSP: 0x%016llx\n", regs.rbp, regs.rsp);
+    printf("R8 : 0x%016llx  R9 : 0x%016llx\n", regs.r8,  regs.r9);
+    printf("R10: 0x%016llx  R11: 0x%016llx\n", regs.r10, regs.r11);
+    printf("R12: 0x%016llx  R13: 0x%016llx\n", regs.r12, regs.r13);
+    printf("R14: 0x%016llx  R15: 0x%016llx\n", regs.r14, regs.r15);
+    printf("RIP: 0x%016llx  RFLAGS: 0x%016llx\n", regs.rip, regs.eflags);
+}
+
 static void cmd_step(debugger_state_t *state) {
     if (ptrace(PTRACE_SINGLESTEP, state->child_pid, NULL, NULL) < 0) {
         perror("单步执行失败");
@@ -111,11 +126,12 @@ static command_t commands[] = {
     {"s",    "单步执行",            cmd_step},
     {"c",    "全速继续",            cmd_continue},
     {"b",    "设置断点并继续运行",   cmd_break},
-    {"i",    "列出所有断点",         cmd_info},
+    {"l",    "列出所有断点",         cmd_info},
     {"d",    "删除断点",            cmd_delete},
     {"help", "显示帮助",            cmd_help},
     {"q",    "退出调试器",          cmd_quit},
-    {NULL, NULL, NULL}
+    {"r",    "查看寄存器",          cmd_registers},
+    {NULL, NULL, NULL}  //哨兵
 };
 
 static void cmd_help(debugger_state_t *state) {

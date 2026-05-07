@@ -16,4 +16,4 @@ demo: demo.c
 	$(CC) $(CFLAGS) -no-pie -o $@ $<
 
 clean:
-	rm -f sdb demo src/*.o
+	rm -rf sdb demo src/*.o build/*
