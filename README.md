@@ -102,3 +102,13 @@ static void cmd_myfeature(debugger_state_t *state) {
 // 在 commands[] 中加入：
 {"x", "我的新命令", cmd_myfeature},
 ```
+
+## Star History
+
+<a href="https://www.star-history.com/?repos=Mel-SRK%2Fsdb&type=date&legend=bottom-right">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=Mel-SRK/sdb&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=Mel-SRK/sdb&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=Mel-SRK/sdb&type=date&legend=top-left" />
+ </picture>
+</a>
